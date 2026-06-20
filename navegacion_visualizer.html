@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador de Navegación - Rase</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #0f0f0f;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #00ff9d;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .summary {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .card {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        th {
+            background: #252525;
+        }
+        .bar-chart {
+            height: 400px;
+        }
+        .highlight {
+            color: #00ff9d;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 Analizador de Navegación - Rase</h1>
+        <p style="text-align: center; color: #888;">Desde enero 2026 | Datos locales</p>
+        
+        <div id="summary" class="summary"></div>
+        
+        <div class="card">
+            <h2>📊 Porcentajes por Categoría</h2>
+            <canvas id="categoryChart" class="bar-chart"></canvas>
+        </div>
+        
+        <div class="card">
+            <h2>🔥 Top Dominios</h2>
+            <table id="domainsTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Dominio</th>
+                        <th>Visitas</th>
+                        <th>%</th>
+                        <th>Categoría</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        fetch('navegacion_analisis_2026.json')
+            .then(response => response.json())
+            .then(data => {
+                // Summary
+                const summaryDiv = document.getElementById('summary');
+                summaryDiv.innerHTML = `
+                    <h2>Resumen</h2>
+                    <p><strong>Período:</strong> ${data.periodo}</p>
+                    <p><strong>Total visitas:</strong> ${data.total_visitas_analizadas.toLocaleString()}</p>
+                    <p><strong>Tiempo aprox.:</strong> ${data.tiempo_total_horas_aprox} horas</p>
+                `;
+                
+                // Category Chart
+                const categories = Object.keys(data.categorias_porcentaje);
+                const percentages = Object.values(data.categorias_porcentaje);
+                
+                new Chart(document.getElementById('categoryChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: categories,
+                        datasets: [{
+                            label: 'Porcentaje de visitas',
+                            data: percentages,
+                            backgroundColor: '#00ff9d',
+                            borderColor: '#00cc7a',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        plugins: { legend: { display: false } },
+                        scales: { x: { beginAtZero: true, max: 100 } }
+                    }
+                });
+                
+                // Top Domains Table
+                const tbody = document.querySelector('#domainsTable tbody');
+                data.top_30_dominios.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td><strong>${item.dominio}</strong></td>
+                        <td>${item.visitas.toLocaleString()}</td>
+                        <td class="highlight">${item.porcentaje}%</td>
+                        <td>${item.categoria}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            })
+            .catch(err => {
+                document.body.innerHTML += `<p style="color: red; text-align: center;">Error cargando JSON. Asegúrate que el archivo navegacion_analisis_2026.json esté en la misma carpeta.</p>`;
+            });
+    </script>
+</body>
+</html>
