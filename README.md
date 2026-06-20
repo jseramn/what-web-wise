@@ -2,9 +2,9 @@
 
 **Analizador de historial de navegación + Visualizador Web**
 
-Herramienta local para analizar tu historial de Chrome, obtener porcentajes por categorías, top dominios y conocer que has estado viendo en la web... para reflexionar un poco.
+Herramienta local para analizar tu historial de Chrome, obtener porcentajes por categorías, top dominios y conocer qué has estado viendo en la web… para reflexionar un poco.
 
-![Banner](banner.png)
+![Banner](https://raw.githubusercontent.com/jseramn/what-web-wise/main/banner.png)
 
 ## ✨ Características
 
@@ -15,6 +15,8 @@ Herramienta local para analizar tu historial de Chrome, obtener porcentajes por 
 - Preparado para identificar servicios con soporte MCP
 
 ## 📁 Estructura del proyecto
+
+```
 what-web-wise/
 ├── analyze_browser_history.py     # Script principal de análisis
 ├── navegacion_visualizer.html     # Visualizador web interactivo
@@ -22,32 +24,41 @@ what-web-wise/
 ├── History                        # Copia de tu archivo de Chrome (no commitear)
 ├── .gitignore
 ├── README.md
-└── banner.png                     # (agrega tu imagen)
-text## 🚀 Cómo usar
+└── banner.png
+```
+
+## 🚀 Cómo usar
 
 ### 1. Preparación
 - Cierra completamente Chrome.
-- Copia tu archivo `History` a esta carpeta (ruta típica Windows: `C:\Users\TuUsuario\AppData\Local\Google\Chrome\User Data\Default\History`).
+- Copia tu archivo `History` a esta carpeta (ruta típica en Windows:  
+  `C:\Users\TuUsuario\AppData\Local\Google\Chrome\User Data\Default\History`).
 
 ### 2. Ejecuta el análisis
 ```powershell
 python analyze_browser_history.py --history-path "History"
-3. Visualiza los resultados
-Abre  en tu navegador. Se carga automáticamente el JSON generado.
-📊 Qué obtienes
+```
 
-Porcentajes por categoría (gráfico de barras)
-Top 30 dominios con visitas y %
-Recomendaciones para añadir conectores MCP (GitHub, Google Drive, Vercel, Grok, etc.)
+### 3. Visualiza los resultados
+Abre `navegacion_visualizer.html` en tu navegador. Se carga automáticamente el JSON generado.
 
-🛠 Tecnologías
+## 📊 Qué obtienes
 
-Python + sqlite3
-HTML + CSS + JavaScript + Chart.js
+- Porcentajes por categoría (gráfico de barras)
+- Top 30 dominios con visitas y %
+- Recomendaciones para añadir conectores MCP (GitHub, Google Drive, Vercel, Grok, etc.)
 
-📝 Notas
+## 🛠 Tecnologías
 
-El archivo History y el JSON generado están en .gitignore por privacidad.
-Para actualizar el análisis: vuelve a correr el script.
+- Python + sqlite3
+- HTML + CSS + JavaScript + Chart.js
 
-Creado por @jseramn
+## 📝 Notas
+
+- El archivo `History` y el JSON generado están en `.gitignore` por privacidad.
+- Para actualizar el análisis: vuelve a correr el script.
+
+---
+
+**Creado por @jseramn**  
+Hecho con ❤️ para mapear patrones y potenciar automatización.
