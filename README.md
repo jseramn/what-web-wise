@@ -4,8 +4,9 @@
 
 Herramienta local para analizar tu historial de Chrome, obtener porcentajes por categorías, top dominios y conocer qué has estado viendo en la web… para reflexionar un poco.
 
-![Banner](https://raw.githubusercontent.com/jseramn/what-web-wise/main/banner.png)
-
+<p align="center">
+  <img src="assets/banner.png" alt="What Web Wise Banner" width="100%">
+</p>
 ## ✨ Características
 
 - Análisis preciso de visitas y tiempo (desde 1 de enero 2026)
